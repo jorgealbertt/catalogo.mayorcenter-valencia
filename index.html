@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Premium | Paletas de Maquillaje</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="img/LOGO.jpeg" alt="Logo de la Empresa" onerror="this.src='https://via.placeholder.com/120x55?text=Tu+Logo'">
+                <div class="logo-title-wrapper">
+                    <h1>Catálogo</h1>
+                    <div class="bcv-badge">
+                        🏪 Tasa BCV: Bs. <strong id="tasaBCVDisplay">0.00</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <select id="categoriaSelect" onchange="filtrarProductos()">
+                    <option value="todas">Todas las categorías</option>
+                    <option value="paletas">Paletas (Línea Actual)</option>
+                    <option value="rubores">Rubores (Línea Actual)</option>
+                    <option value="labiales" disabled>Labiales (Próximamente)</option>
+                    <option value="skincare" disabled>Skincare (Próximamente)</option>
+                </select>
+                
+                <select id="marcaSelect" onchange="filtrarProductos()">
+                    <option value="todas">Todas las marcas</option>
+                    <option value="Ushas">Ushas</option>
+                    <option value="Kevin Coco">Kevin Coco</option>
+                    <option value="Hudavioji">Hudavioji</option>
+                    <option value="Otra">Otras / Variadas</option>
+                </select>
+
+                <input type="text" id="searchInput" placeholder="Buscar código o descripción..." onkeyup="filtrarProductos()">
+            </div>
+        </div>
+    </header>
+
+    <div class="banner-mayorista">
+        <div class="banner-mayorista-content">
+            <div class="banner-mayorista-text">
+                <h2>🛍️ Compra al Mayor (Mínimo $25) No se admite Cashea</h2>
+                <p>Lleva un mínimo general de <strong>6 productos</strong>. <span>*Ciertas condiciones aplican:</span> Algunos artículos específicos requieren llevar un mínimo obligatorio de 3 o 12 unidades.</p>
+            </div>
+            <a href="https://wa.me/584244188558?text=Hola!%20Estoy%20viendo%20el%20cat%C3%A1logo.%20Me%20podr%C3%ADan%20explicar%20las%20condiciones%20de%20unidades%20m%C3%ADnimas%20por%20producto?" target="_blank" class="btn-mayorista-wa">
+                💬 Consultar Condiciones
+            </a>
+        </div>
+    </div>
+
+    <main class="catalog-container" id="gridProductos"></main>
+
+    <button class="cart-toggle" onclick="toggleCart()">
+        <span class="cart-count" id="cartCount">0</span>
+        🛍️
+    </button>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Pedido</h2>
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        
+        <div class="cart-body">
+            <div class="cart-items-container" id="cartItemsList"></div>
+            
+            <div class="price-type-selector">
+                <button class="price-type-btn active" id="btnTipoMayor" onclick="setPriceType('mayor')">Precio Mayor</button>
+                <button class="price-type-btn" id="btnTipoDetal" onclick="setPriceType('detal')">Precio Detal</button>
+            </div>
+
+            <div class="cart-nota-mayor">
+                ℹ️ <strong>Recordatorio Mayorista:</strong> Compra mínima de $25 (mín. 6 productos combinados). Recuerda verificar vía WhatsApp si tus artículos seleccionados requieren llevar 3 o 12 unidades fijas.
+            </div>
+            
+            <div class="cart-total-block">
+                <div class="total-row-main">
+                    <span>Total USD:</span>
+                    <span id="cartTotalValue">$0.00</span>
+                </div>
+                <div class="total-row-bs">
+                    <span>Total en Bs. (BCV):</span>
+                    <span id="cartTotalBsValue">Bs. 0.00</span>
+                </div>
+            </div>
+
+            <div class="checkout-form">
+                <h3>📋 Datos de Entrega y Pago</h3>
+                
+                <div class="form-group">
+                    <label for="custNombre">Nombre *</label>
+                    <input type="text" id="custNombre" placeholder="Ej. María">
+                </div>
+
+                <div class="form-group">
+                    <label for="custApellido">Apellido *</label>
+                    <input type="text" id="custApellido" placeholder="Ej. Pérez">
+                </div>
+
+                <div class="form-group">
+                    <label for="custTelefono">Teléfono Móvil *</label>
+                    <input type="text" id="custTelefono" placeholder="Ej. 04241234567">
+                </div>
+
+                <div class="form-group">
+                    <label for="custEnvio">¿Requiere Envío? *</label>
+                    <select id="custEnvio" onchange="analizarOpcionEnvio()">
+                        <option value="No, retiro en persona">No, retiro en persona (Pick up)</option>
+                        <option value="Sí, deseo envío a domicilio / agencia">Sí, deseo envío nacional o delivery</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="grupoUbicacion" style="display: none;">
+                    <label for="custUbicacion">Dirección de Entrega / Ubicación *</label>
+                    <input type="text" id="custUbicacion" placeholder="Ciudad, Sector, Calle, Punto de ref.">
+                </div>
+
+                <div class="form-group">
+                    <label for="custPago">Forma de Pago Seleccionada *</label>
+                    <select id="custPago">
+                        <option value="Pago Móvil">Pago Móvil</option>
+                        <option value="Efectivo (Divisas / BS)">Efectivo (Divisas / BS)</option>
+                        <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <button class="btn-send-order" onclick="enviarPedidoWhatsApp()">
+                💬 Enviar Pedido Completo a WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="cerrarLightbox(event)">
+        <div class="lightbox-content">
+            <span class="close-btn" onclick="cerrarLightbox(event)">&times;</span>
+            <img id="lightbox-img" src="" alt="Zoom">
+        </div>
+    </div>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
