@@ -78,7 +78,7 @@ const productos = [
   { "id": 72, "codigo": "6950865405912", "precio_detal": 1.8, "precio_mayor": 1.5, "descripcion": "Rubor En Polvo Yuth Vitality Meis 6Tonos #Mso116B *24Pcs* X 1Caja", "marca": "Otra" },
   { "id": 73, "codigo": "6924372618707", "precio_detal": 1.84, "precio_mayor": 1.84, "descripcion": "Labial Y Blush En Gel Magic Aurora 3En1 4Tonos Ushas #Uc105 *24Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 74, "codigo": "6976289198117", "precio_detal": 3.2, "precio_mayor": 2.7, "descripcion": "Rubor Mousse Blush Bake 4Tonos Kevin Coco #Kc-248117 *24Pcs* X Caja", "marca": "Kevin Coco" },
-  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.3, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }
+  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.7, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }
 ];
 
 let carrito = [];
