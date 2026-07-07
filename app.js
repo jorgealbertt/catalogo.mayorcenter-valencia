@@ -1,6 +1,6 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
 // Cuando cambie la tasa oficial, solo edita este número de abajo y súbelo a GitHub.
-const TASA_BCV = 652.97; 
+const TASA_BCV = 674.93; 
 
 // 2. BASE DE DATOS LOCAL COMPLETA
 const productos = [
