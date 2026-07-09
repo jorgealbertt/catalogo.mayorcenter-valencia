@@ -148,6 +148,92 @@
         </div>
     </div>
 
+    <section class="innovative-catalogs-section">
+        <div class="catalogs-header">
+            <h2>📚 Descarga nuestros Catálogos</h2>
+            <p>Toca la portada para abrir y descargar la última colección</p>
+        </div>
+
+        <div class="catalogs-3d-grid">
+            <div class="book-container">
+                <div class="book">
+                    <div class="book-front">
+                        <img src="img/portada-1.webp" alt="Catálogo Temporada">
+                        <span class="touch-hint">Toca para abrir</span>
+                    </div>
+                    <div class="book-inside">
+                        <h3>Colección<br>Premium</h3>
+                        <p>Edición 2026</p>
+                        <div class="book-details">
+                            <span>✨ +75 Productos</span>
+                            <span>📊 Precios Mayoristas</span>
+                        </div>
+                        <a href="documentos/catalogo1.pdf" download class="btn-download-3d">
+                            📥 Descargar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-container">
+                <div class="book">
+                    <div class="book-front">
+                        <img src="img/portada-2.webp" alt="Catálogo Ofertas">
+                        <span class="touch-hint">Toca para abrir</span>
+                    </div>
+                    <div class="book-inside">
+                        <h3>Liquidación<br>& Ofertas</h3>
+                        <p>Stock Inmediato</p>
+                        <div class="book-details">
+                            <span>🔥 Descuentos</span>
+                            <span>🚚 Envío Rápido</span>
+                        </div>
+                        <a href="documentos/catalogo2.pdf" download class="btn-download-3d">
+                            📥 Descargar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="quickview-modal" class="modal-ui-wrapper oculto" aria-hidden="true">
+        <div class="modal-ui-card">
+            <button class="modal-ui-close" id="btnCerrarModalUI" aria-label="Cerrar vista">&times;</button>
+            
+            <div class="modal-ui-grid">
+                <div class="modal-ui-gallery">
+                    <div class="main-image-box">
+                        <img id="modalUiImgPrincipal" src="" alt="Vista de Producto" loading="lazy">
+                    </div>
+                    <div class="modal-ui-thumbs" id="modalUiContenedorThumbs"></div>
+                </div>
+                
+                <div class="modal-ui-details">
+                    <span id="modalUiMarca" class="modal-ui-badge"></span>
+                    <h2 id="modalUiTitulo"></h2>
+                    
+                    <div class="modal-ui-prices">
+                        <div class="price-block">
+                            <span class="price-label">Precio Mayor</span>
+                            <span class="price-value">$<span id="modalUiPrecioMayor">0.00</span></span>
+                        </div>
+                        <div class="price-block">
+                            <span class="price-label">Precio Detal</span>
+                            <span class="price-value">$<span id="modalUiPrecioDetal">0.00</span></span>
+                        </div>
+                    </div>
+                    
+                    <p class="modal-ui-code">Código: <span id="modalUiCodigo"></span></p>
+                    
+                    <button class="modal-ui-btn-action" id="modalUiBtnAgregar">
+                        Añadir al Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js" defer></script>
 </body>
 </html>

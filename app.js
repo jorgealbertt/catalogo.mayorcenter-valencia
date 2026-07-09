@@ -1,16 +1,16 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
-// Cuando cambie la tasa oficial, solo edita este número de abajo y súbelo a GitHub.
-const TASA_BCV = 700.00; 
+const TASA_BCV = 592.52; 
 
-// 2. BASE DE DATOS LOCAL COMPLETA
+// 2. BASE DE DATOS LOCAL COMPLETA (Actualizada con propiedad "variantes")
 const productos = [
-  { "id": 1, "codigo": "6924372627723", "precio_detal": 7.8, "precio_mayor": 6.5, "descripcion": "Sombra Y Rubor Ushas Crush On You 15Clrs #Es4060-2 *6Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 2, "codigo": "6924372604328", "precio_detal": 7.8, "precio_mayor": 6.6, "descripcion": "Paleta Sombra-Iluminador-Rubor Dolbe C/Espejo 15Clr Ushas #Ues012-4 *6Pcs* X 1Caja", "marca": "Ushas" },
+  // NOTA: Agregué "variantes: 3" al primer producto y "variantes: 2" al segundo como ejemplo.
+  { "id": 1, "codigo": "6924372627723", "precio_detal": 7.8, "precio_mayor": 6.5, "descripcion": "Sombra Y Rubor Ushas Crush On You 15Clrs #Es4060-2 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
+  { "id": 2, "codigo": "6924372604328", "precio_detal": 7.8, "precio_mayor": 6.6, "descripcion": "Paleta Sombra-Iluminador-Rubor Dolbe C/Espejo 15Clr Ushas #Ues012-4 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
   { "id": 3, "codigo": "6924372628027", "precio_detal": 2.8, "precio_mayor": 2.4, "descripcion": "Sombra Ojos Ombretto Eyeshadow Ushas #Es4144-4 *12Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 4, "codigo": "6974482505206", "precio_detal": 2.6, "precio_mayor": 2.2, "descripcion": "Paleta Sombra 4Mdl Strawberry Blush-Eye 8Clr Hudavioji #Es-749 *24Pcs* X 1Caja", "marca": "Hudavioji" },
   { "id": 5, "codigo": "6924372618608", "precio_detal": 5.3, "precio_mayor": 5.3, "descripcion": "Paleta Sombra-Blush Blooming Your Own Beauty 18Clr #Uf076-4 *6Pcs* X 1Caja", "marca": "Otra" },
   { "id": 6, "codigo": "6924372629956", "precio_detal": 8.1, "precio_mayor": 6.8, "descripcion": "Sombra Showtime Ushas 32Clr Uf018-4 *6Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 7, "codigo": "6976289199718", "precio_detal": 8.8, "precio_mayor": 7.5, "descripcion": "Paleta Sombras Y Rubor Kevin Coco Eyeshadow Panda #01 Bear#02 #Kc1066 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
+  { "id": 7, "codigo": "6976289199718", "precio_detal": 8.8, "precio_mayor": 7.5, "descripcion": "Paleta Sombras Y Rubor Kevin Coco Eyeshadow Panda #01 Bear#02 #Kc1066 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 2 },
   { "id": 8, "codigo": "6976289197981", "precio_detal": 8.0, "precio_mayor": 6.8, "descripcion": "Sombra Kevin Coco Cherry 19Clr #Kc247981 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
   { "id": 9, "codigo": "6976289197967", "precio_detal": 8.0, "precio_mayor": 6.8, "descripcion": "Sombra Kevin Coco Coconut 19Clr #Kc247967 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
   { "id": 10, "codigo": "6976289197974", "precio_detal": 8.0, "precio_mayor": 6.8, "descripcion": "Sombra Kevin Coco Peach 19Clr #Kc247974 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
@@ -29,24 +29,24 @@ const productos = [
   { "id": 23, "codigo": "6924372602751", "precio_detal": 3.1, "precio_mayor": 3.1, "descripcion": "Sombra Ojos Ombretto Sweetday Ushas #Ues001-4 *12Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 24, "codigo": "6924372618790", "precio_detal": 6.2, "precio_mayor": 5.2, "descripcion": "Paleta Sombra 3En1 C\\Espejo Eyeshadow 19Clr Stay All Day 2Mdl Ushas #Uf080-4 *12Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 25, "codigo": "6924372603918", "precio_detal": 2.8, "precio_mayor": 2.3, "descripcion": "Paleta Sombra Eyeshadow Beauty Glazed 12H Lasting 2Mdl Color Show 9Clr Ushas #Ues010-2 *12Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 26, "codigo": "6924372617199", "precio_detal": 12.0, "precio_mayor": 10.2, "descripcion": "Paleta Sombra Sweet Ice Cream 3En1 Ushas #Uf-048 *6Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 27, "codigo": "6924372617205", "precio_detal": 12.0, "precio_mayor": 10.2, "descripcion": "Paleta Sombra Sweet Cake 3En1 Ushas #Uf-049 *6Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 28, "codigo": "6924372617212", "precio_detal": 9.4, "precio_mayor": 8.2, "descripcion": "Sombra Iluminador Y Corrector Sweet Donut Ushas #Uf050 *6Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 29, "codigo": "6976289196526", "precio_detal": 6.3, "precio_mayor": 5.3, "descripcion": "Paleta Sombra C/Espejo Y Pincel 18Clr Fire Of Love Kevin Coco #Kc-9014 *6Pcs* X 1Caja", "marca": "Kevin Coco" },
-  { "id": 30, "codigo": "6970265726264", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 26Clrs 6En1 Charmlook Ballet #726B-6 *12Pcs* X 1Caja", "marca": "Otra" },
+  { "id": 26, "codigo": "6924372617199", "precio_detal": 12.0, "precio_mayor": 10.2, "descripcion": "Paleta Sombra Sweet Ice Cream 3En1 Ushas #Uf-048 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
+  { "id": 27, "codigo": "6924372617205", "precio_detal": 12.0, "precio_mayor": 10.2, "descripcion": "Paleta Sombra Sweet Cake 3En1 Ushas #Uf-049 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
+  { "id": 28, "codigo": "6924372617212", "precio_detal": 9.4, "precio_mayor": 8.2, "descripcion": "Sombra Iluminador Y Corrector Sweet Donut Ushas #Uf050 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
+  { "id": 29, "codigo": "6976289196526", "precio_detal": 6.3, "precio_mayor": 5.3, "descripcion": "Paleta Sombra C/Espejo Y Pincel 18Clr Fire Of Love Kevin Coco #Kc-9014 *6Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 1 },
+  { "id": 30, "codigo": "6970265726264", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 26Clrs 6En1 Charmlook Ballet #726B-6 *12Pcs* X 1Caja", "marca": "Otra", "variantes": 1 },
   { "id": 31, "codigo": "6970265726264", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 26Clrs 6En1 Charmlook Ballet #726B-6 *12Pcs* X 1Caja", "marca": "Otra" },
-  { "id": 32, "codigo": "6976289198858", "precio_detal": 11.0, "precio_mayor": 9.3, "descripcion": "Paleta Sombra-Iluminador C/Espejo Sirenita 36Clr Kevuin Coco #Kc-248858 *6Pcs* X 1Caja", "marca": "Kevin Coco" },
-  { "id": 33, "codigo": "6976289194881", "precio_detal": 20.8, "precio_mayor": 17.6, "descripcion": "Sombras-Labial Kevin-Coco Face Chart 36Clr Kc-244881 X 1Und", "marca": "Kevin Coco" },
-  { "id": 34, "codigo": "6976159954294", "precio_detal": 7.3, "precio_mayor": 6.2, "descripcion": "Serie Maquillaje Niñas 11Pcs Professional Makeup #Varied Queen #V6429 X 1Set", "marca": "Otra" },
-  { "id": 35, "codigo": "6976289199824", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Kevin Coco #Kc-1023 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
-  { "id": 36, "codigo": "6976289199831", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Y Pincel Kevin Coco #Kc-1024 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
-  { "id": 37, "codigo": "6976289199817", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Y Pincel Kevin Coco #Kc-1022 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
-  { "id": 38, "codigo": "6970265728008", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 32Clrs 6En1 Charmlook Chica C/Unicornio #728A *12Pcs* X 1Caja", "marca": "Otra" },
+  { "id": 32, "codigo": "6976289198858", "precio_detal": 11.0, "precio_mayor": 9.3, "descripcion": "Paleta Sombra-Iluminador C/Espejo Sirenita 36Clr Kevuin Coco #Kc-248858 *6Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 1 },
+  { "id": 33, "codigo": "6976289194881", "precio_detal": 20.8, "precio_mayor": 17.6, "descripcion": "Sombras-Labial Kevin-Coco Face Chart 36Clr Kc-244881 X 1Und", "marca": "Kevin Coco", "variantes": 2 },
+  { "id": 34, "codigo": "6976159954294", "precio_detal": 7.3, "precio_mayor": 6.2, "descripcion": "Serie Maquillaje Niñas 11Pcs Professional Makeup #Varied Queen #V6429 X 1Set", "marca": "Otra", "variantes": 1 },
+  { "id": 35, "codigo": "6976289199824", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Kevin Coco #Kc-1023 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 1 },
+  { "id": 36, "codigo": "6976289199831", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Y Pincel Kevin Coco #Kc-1024 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 1 },
+  { "id": 37, "codigo": "6976289199817", "precio_detal": 12.7, "precio_mayor": 10.7, "descripcion": "Paletade Sombra 54 Colors Eye Shadow C/Espejo Y Pincel Kevin Coco #Kc-1022 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 1 },
+  { "id": 38, "codigo": "6970265728008", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 32Clrs 6En1 Charmlook Chica C/Unicornio #728A *12Pcs* X 1Caja", "marca": "Otra", "variantes": 1 },
   { "id": 39, "codigo": "6924372605288", "precio_detal": 9.7, "precio_mayor": 8.1, "descripcion": "Paleta Sombra Ojos Ushas 11Clrs+Espejo Eyeshadow Zootopia 2 #Uds006 *12Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 40, "codigo": "6970265729012", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 21Clrs 6En1 Charmlook Mariposas #729D *12Pcs* X 1Caja", "marca": "Otra" },
-  { "id": 41, "codigo": "6970265729012", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 21Clrs 6En1 Charmlook Mariposas #729D *12Pcs* X 1Caja", "marca": "Otra" },
+  { "id": 40, "codigo": "6970265729012", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 21Clrs 6En1 Charmlook Mariposas #729D *12Pcs* X 1Caja", "marca": "Otra", "variantes": 1 },
+  { "id": 41, "codigo": "6970265729012", "precio_detal": 4.5, "precio_mayor": 3.8, "descripcion": "Mini Paleta Sombra 21Clrs 6En1 Charmlook Mariposas #729D *12Pcs* X 1Caja", "marca": "Otra", "variantes": 1 },
   { "id": 42, "codigo": "6976159954386", "precio_detal": 9.0, "precio_mayor": 7.6, "descripcion": "Paleta Sombra 11En1 Nothing Is Impossible Variedad Queen #Unicornio Sentado Leyendo #V6438 X 1Und", "marca": "Otra" },
-  { "id": 43, "codigo": "6976159954355", "precio_detal": 7.5, "precio_mayor": 6.4, "descripcion": "Paleta Sombra 9En1 Variedad Queen Love You Ponquesito #V6435 X 1Und", "marca": "Otra" },
+  { "id": 43, "codigo": "6976159954355", "precio_detal": 7.5, "precio_mayor": 6.4, "descripcion": "Paleta Sombra 9En1 Variedad Queen Love You Ponquesito #V6435 X 1Und", "marca": "Otra", "variantes": 1 },
   { "id": 44, "codigo": "6976159953990", "precio_detal": 9.0, "precio_mayor": 7.6, "descripcion": "Paleta Sombra Varied Queen 24En1 Makeup Gift Box #Muñeca C/Unicornio #V6399 X 1Und", "marca": "Otra" },
   { "id": 45, "codigo": "6974482523064", "precio_detal": 1.2, "precio_mayor": 1.0, "descripcion": "Rubor Liquido Blusher Me Up 15Ml Hudavioji #Bq-065 *24Pcs* X 1Caja", "marca": "Hudavioji" },
   { "id": 46, "codigo": "6974482503219", "precio_detal": 3.4, "precio_mayor": 2.9, "descripcion": "Rubor Hudavioji Blush Natural Flush #B-144 *12Pcs* X 1Caja", "marca": "Hudavioji" },
@@ -72,13 +72,13 @@ const productos = [
   { "id": 66, "codigo": "6924372633274", "precio_detal": 3.2, "precio_mayor": 2.7, "descripcion": "Rubor Sas Beautiful Garden Blush Colorete-Fard #Saf057-4 *24Pcs* X 1Caja", "marca": "Otra" },
   { "id": 67, "codigo": "6976289197752", "precio_detal": 3.5, "precio_mayor": 3.0, "descripcion": "Paleta De Rubor-Blush 2Mdl Forma De Corazon Heart 4Clr Kevin Coco #247752 *12Pcs* X 1Caja", "marca": "Kevin Coco" },
   { "id": 68, "codigo": "6985415467317", "precio_detal": 1.9, "precio_mayor": 1.6, "descripcion": "Rubor-Brush En Barra C/Esponja 2En1 High Quality 4Clr Magic Your Life #Ma31 *12Pcs* X Caja", "marca": "Otra" },
-  { "id": 69, "cyan": "true", "codigo": "6951866603529", "precio_detal": 0.6, "precio_mayor": 0.51, "descripcion": "RUBOR POWDER COMPACTO B.PHILOSOPHY BLUSH VELVET 6T #PL-9001 *24PCS* X 1CAJA", "marca": "Otra" },
+  { "id": 69, "codigo": "6951866603529", "precio_detal": 0.6, "precio_mayor": 0.51, "descripcion": "RUBOR POWDER COMPACTO B.PHILOSOPHY BLUSH VELVET 6T #PL-9001 *24PCS* X 1CAJA", "marca": "Otra" },
   { "id": 70, "codigo": "6924372602621", "precio_detal": 2.8, "precio_mayor": 2.3, "descripcion": "Paleta De Rubor Blush Ushas 2Tonos #Uf099A *24Pcs* X 1Caja", "marca": "Ushas" },
-  { "id": 71, "codigo": "6924372617885", "precio_detal": 3.1, "precio_remove": 2.6, "precio_mayor": 2.6, "descripcion": "Rubor Jelly Blusher 4Clr Ushas #Uf063-A *24Pcs* X 1Caja", "marca": "Ushas" },
+  { "id": 71, "codigo": "6924372617885", "precio_detal": 3.1, "precio_mayor": 2.6, "descripcion": "Rubor Jelly Blusher 4Clr Ushas #Uf063-A *24Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 72, "codigo": "6950865405912", "precio_detal": 1.8, "precio_mayor": 1.5, "descripcion": "Rubor En Polvo Yuth Vitality Meis 6Tonos #Mso116B *24Pcs* X 1Caja", "marca": "Otra" },
   { "id": 73, "codigo": "6924372618707", "precio_detal": 1.84, "precio_mayor": 1.84, "descripcion": "Labial Y Blush En Gel Magic Aurora 3En1 4Tonos Ushas #Uc105 *24Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 74, "codigo": "6976289198117", "precio_detal": 3.2, "precio_mayor": 2.7, "descripcion": "Rubor Mousse Blush Bake 4Tonos Kevin Coco #Kc-248117 *24Pcs* X Caja", "marca": "Kevin Coco" },
-  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.7, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }
+  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.3, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }
 ];
 
 let carrito = [];
@@ -90,7 +90,7 @@ function inicializarTasa() {
     document.getElementById('tasaBCVDisplay').innerText = TASA_BCV.toFixed(2);
 }
 
-// 4. DISPLAY DE PRODUCTOS PREMIUM
+// 4. DISPLAY DE PRODUCTOS PREMIUM (Modificado para usar abrirQuickview)
 function renderizarProductos(lista) {
     grid.innerHTML = "";
     if(lista.length === 0) {
@@ -102,7 +102,7 @@ function renderizarProductos(lista) {
         const imgPath = `img/${prod.id}.webp`;
         const cardHTML = `
             <div class="card">
-                <div class="card-img-container" onclick="abrirLightbox('${imgPath}')">
+                <div class="card-img-container" onclick="abrirQuickview(${prod.id})">
                     <span class="photo-id-badge">FOTO: #${prod.id}</span>
                     <span class="brand-badge">${prod.marca}</span>
                     <img src="${imgPath}" alt="Item" onerror="this.src='https://via.placeholder.com/400?text=Foto+${prod.id}'">
@@ -251,7 +251,6 @@ function enviarPedidoWhatsApp() {
         return;
     }
 
-    // Calcular montos y unidades totales para evaluar las condiciones
     let totalGeneral = 0;
     let totalUnidades = 0;
     carrito.forEach(item => {
@@ -260,21 +259,18 @@ function enviarPedidoWhatsApp() {
         totalUnidades += item.cantidad;
     });
 
-    // CAMBIO PROFESIONAL: Validación estricta de la regla al mayor
     if (tipoPrecio === 'mayor') {
         if (totalGeneral < 25.00 || totalUnidades < 6) {
             alert(`⚠️ Tu pedido no califica para Precio al Mayor.\n\nRequisitos mínimos: Compra de $25.00 USD y un mínimo de 6 artículos combinados.\n\nActual: $${totalGeneral.toFixed(2)} USD y ${totalUnidades} artículo(s).\n\nSerás redirigido a atención al cliente por WhatsApp para mayor información.`);
             
-            // Redirección inmediata con mensaje informativo simplificado
             let mensajeInformativo = `¡Hola! Estaba armando un pedido al mayor en el catálogo con un total de $${totalGeneral.toFixed(2)} USD y ${totalUnidades} artículos, pero no alcanzo los mínimos requeridos ($25 USD / 6 unds). Me gustaría recibir asesoría o cambiar mi pedido a la tarifa al Detal.`;
             
             const urlInfo = `https://wa.me/584244188558?text=${encodeURIComponent(mensajeInformativo)}`;
             window.open(urlInfo, '_blank');
-            return; // Bloquea la ejecución del pedido estructurado
+            return;
         }
     }
 
-    // Si pasa la validación o es al detal, solicita el formulario habitual
     const nombre = document.getElementById("custNombre").value.trim();
     const apellido = document.getElementById("custApellido").value.trim();
     const telefono = document.getElementById("custTelefono").value.trim();
@@ -334,7 +330,7 @@ function enviarPedidoWhatsApp() {
     window.open(urlFinal, '_blank');
 }
 
-// 7. CONTROL DEL LIGHTBOX NATIVO
+// 7. CONTROL DEL LIGHTBOX NATIVO (Antiguo)
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 
@@ -349,6 +345,105 @@ function cerrarLightbox(e) {
     }
 }
 
-// 8. EJECUCIONES AL CARGAR LA PÁGINA
+// ==========================================================================
+// 8. CONTROLADOR DE LA INTERFAZ DE VISTA RÁPIDA (QUICKVIEW LIGERO)
+// ==========================================================================
+
+const modalUi = document.getElementById('quickview-modal');
+const modalUiImgPrincipal = document.getElementById('modalUiImgPrincipal');
+const modalUiContenedorThumbs = document.getElementById('modalUiContenedorThumbs');
+const btnCerrarModalUI = document.getElementById('btnCerrarModalUI');
+
+const modalUiMarca = document.getElementById('modalUiMarca');
+const modalUiTitulo = document.getElementById('modalUiTitulo');
+const modalUiPrecioMayor = document.getElementById('modalUiPrecioMayor');
+const modalUiPrecioDetal = document.getElementById('modalUiPrecioDetal');
+const modalUiCodigo = document.getElementById('modalUiCodigo');
+const modalUiBtnAgregar = document.getElementById('modalUiBtnAgregar');
+
+function abrirQuickview(idProducto) {
+    const producto = productos.find(p => p.id === idProducto);
+    if (!producto) return;
+
+    // Asignación inmediata de textos
+    modalUiMarca.textContent = producto.marca || "Varios";
+    modalUiTitulo.textContent = producto.descripcion;
+    modalUiPrecioMayor.textContent = producto.precio_mayor.toFixed(2);
+    modalUiPrecioDetal.textContent = producto.precio_detal.toFixed(2);
+    modalUiCodigo.textContent = producto.codigo;
+
+    // Conectamos el botón al carrito de la misma interfaz
+    modalUiBtnAgregar.onclick = function() {
+        agregarAlCarrito(producto.id);
+        cerrarModalUI(); // Opcional: Cerrar el modal al agregar, puedes comentarlo si prefieres que siga abierto
+    };
+
+    // Usamos el formato base .webp como lo tenías en tu código original
+    const rutaImagenPrincipal = `img/${producto.id}.webp`;
+    modalUiImgPrincipal.src = rutaImagenPrincipal;
+
+    // Limpieza de miniaturas
+    modalUiContenedorThumbs.innerHTML = '';
+
+    // Generar variantes automáticamente si el producto cuenta con ellas
+    if (producto.variantes && producto.variantes > 0) {
+        const fragmento = document.createDocumentFragment();
+
+        // Miniatura de la imagen base (ej: img/1.webp)
+        const thumbBase = document.createElement('img');
+        thumbBase.src = rutaImagenPrincipal;
+        thumbBase.classList.add('thumb-item', 'activa');
+        thumbBase.onclick = function() {
+            cambiarImagenPrincipalSutil(rutaImagenPrincipal, this);
+        };
+        fragmento.appendChild(thumbBase);
+
+        // Bucle dinámico para generar las variantes (ej: img/1.1.webp, img/1.2.webp...)
+        for (let i = 1; i <= producto.variantes; i++) {
+            const thumbVariante = document.createElement('img');
+            const rutaVariante = `img/${producto.id}.${i}.webp`;
+            
+            thumbVariante.src = rutaVariante;
+            thumbVariante.classList.add('thumb-item');
+            
+            thumbVariante.onclick = function() {
+                cambiarImagenPrincipalSutil(rutaVariante, this);
+            };
+
+            fragmento.appendChild(thumbVariante);
+        }
+
+        modalUiContenedorThumbs.appendChild(fragmento);
+    }
+
+    // Despliegue visual
+    modalUi.classList.remove('oculto');
+}
+
+function cambiarImagenPrincipalSutil(nuevaRuta, elementoThumb) {
+    modalUiImgPrincipal.src = nuevaRuta;
+    const thumbActivoPrevio = modalUiContenedorThumbs.querySelector('.activa');
+    if (thumbActivoPrevio) {
+        thumbActivoPrevio.classList.remove('activa');
+    }
+    elementoThumb.classList.add('activa');
+}
+
+function cerrarModalUI() {
+    modalUi.classList.add('oculto');
+    setTimeout(() => { modalUiImgPrincipal.src = ''; }, 200);
+}
+
+btnCerrarModalUI.addEventListener('click', cerrarModalUI);
+modalUi.addEventListener('click', (e) => {
+    if (e.target === modalUi) cerrarModalUI();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modalUi.classList.contains('oculto')) {
+        cerrarModalUI();
+    }
+});
+
+// 9. EJECUCIONES AL CARGAR LA PÁGINA
 inicializarTasa();
 renderizarProductos(productos);
