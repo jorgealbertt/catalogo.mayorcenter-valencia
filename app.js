@@ -1,9 +1,8 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
 const TASA_BCV = 592.52; 
 
-// 2. BASE DE DATOS LOCAL COMPLETA (Actualizada con propiedad "variantes")
+// 2. BASE DE DATOS LOCAL COMPLETA (Se mantiene intacta)
 const productos = [
-  // NOTA: Agregué "variantes: 3" al primer producto y "variantes: 2" al segundo como ejemplo.
   { "id": 1, "codigo": "6924372627723", "precio_detal": 7.8, "precio_mayor": 6.5, "descripcion": "Sombra Y Rubor Ushas Crush On You 15Clrs #Es4060-2 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
   { "id": 2, "codigo": "6924372604328", "precio_detal": 7.8, "precio_mayor": 6.6, "descripcion": "Paleta Sombra-Iluminador-Rubor Dolbe C/Espejo 15Clr Ushas #Ues012-4 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
   { "id": 3, "codigo": "6924372628027", "precio_detal": 2.8, "precio_mayor": 2.4, "descripcion": "Sombra Ojos Ombretto Eyeshadow Ushas #Es4144-4 *12Pcs* X 1Caja", "marca": "Ushas" },
@@ -90,11 +89,11 @@ function inicializarTasa() {
     document.getElementById('tasaBCVDisplay').innerText = TASA_BCV.toFixed(2);
 }
 
-// 4. DISPLAY DE PRODUCTOS PREMIUM (Modificado para usar abrirQuickview)
+// 4. DISPLAY DE PRODUCTOS PREMIUM (Con Lazy Loading)
 function renderizarProductos(lista) {
     grid.innerHTML = "";
     if(lista.length === 0) {
-        grid.innerHTML = "<h3 style='grid-column: 1/-1; text-align: center; color: #e91e63; padding: 40px;'>No encontramos coincidencias...</h3>";
+        grid.innerHTML = "<h3 style='grid-column: 1/-1; text-align: center; color: #a87b8b; padding: 40px;'>No encontramos coincidencias...</h3>";
         return;
     }
 
@@ -103,9 +102,9 @@ function renderizarProductos(lista) {
         const cardHTML = `
             <div class="card">
                 <div class="card-img-container" onclick="abrirQuickview(${prod.id})">
-                    <span class="photo-id-badge">FOTO: #${prod.id}</span>
+                    <span class="photo-id-badge">#${prod.id}</span>
                     <span class="brand-badge">${prod.marca}</span>
-                    <img src="${imgPath}" alt="Item" onerror="this.src='https://via.placeholder.com/400?text=Foto+${prod.id}'">
+                    <img src="${imgPath}" alt="Item" loading="lazy" onerror="this.src='https://via.placeholder.com/400?text=Foto+${prod.id}'">
                 </div>
                 <div class="card-content">
                     <span class="card-code">CÓD: ${prod.codigo}</span>
@@ -121,7 +120,7 @@ function renderizarProductos(lista) {
                         </div>
                     </div>
                     <button class="btn-add" onclick="agregarAlCarrito(${prod.id})">
-                        🛍️ Añadir al Pedido
+                        Añadir al Pedido
                     </button>
                 </div>
             </div>
@@ -214,16 +213,12 @@ function actualizarInterfazCarrito() {
 
         const itemHTML = `
             <div class="cart-item">
-                <img src="img/${item.id}.webp" onerror="this.src='https://via.placeholder.com/60?text=${item.id}'">
+                <img src="img/${item.id}.webp" loading="lazy" onerror="this.src='https://via.placeholder.com/60?text=${item.id}'">
                 <div class="cart-item-info">
                     <h4 class="cart-item-title">${item.descripcion}</h4>
-                    <div class="cart-item-meta">
-                        <span>CÓD: ${item.codigo}</span><br>
-                        <span style="color:#e91e63; font-weight:bold;">FOTO #${item.id} | Unit: $${precioUsado.toFixed(2)}</span>
-                    </div>
                     <div class="quantity-controls">
                         <button class="btn-qty" onclick="cambiarCantidad(${item.id}, -1)">-</button>
-                        <span style="font-weight: bold; padding: 0 5px;">${item.cantidad}</span>
+                        <span style="font-weight: bold; padding: 0 10px;">${item.cantidad}</span>
                         <button class="btn-qty" onclick="cambiarCantidad(${item.id}, 1)">+</button>
                     </div>
                 </div>
@@ -330,25 +325,7 @@ function enviarPedidoWhatsApp() {
     window.open(urlFinal, '_blank');
 }
 
-// 7. CONTROL DEL LIGHTBOX NATIVO (Antiguo)
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-
-function abrirLightbox(src) {
-    lightboxImg.src = src;
-    lightbox.classList.add("active");
-}
-
-function cerrarLightbox(e) {
-    if (!e || e.target.id === 'lightbox' || e.target.classList.contains('close-btn')) {
-        lightbox.classList.remove("active");
-    }
-}
-
-// ==========================================================================
-// 8. CONTROLADOR DE LA INTERFAZ DE VISTA RÁPIDA (QUICKVIEW LIGERO)
-// ==========================================================================
-
+// 8. CONTROLADOR DE LA INTERFAZ DE VISTA RÁPIDA
 const modalUi = document.getElementById('quickview-modal');
 const modalUiImgPrincipal = document.getElementById('modalUiImgPrincipal');
 const modalUiContenedorThumbs = document.getElementById('modalUiContenedorThumbs');
@@ -365,58 +342,47 @@ function abrirQuickview(idProducto) {
     const producto = productos.find(p => p.id === idProducto);
     if (!producto) return;
 
-    // Asignación inmediata de textos
     modalUiMarca.textContent = producto.marca || "Varios";
     modalUiTitulo.textContent = producto.descripcion;
     modalUiPrecioMayor.textContent = producto.precio_mayor.toFixed(2);
     modalUiPrecioDetal.textContent = producto.precio_detal.toFixed(2);
     modalUiCodigo.textContent = producto.codigo;
 
-    // Conectamos el botón al carrito de la misma interfaz
     modalUiBtnAgregar.onclick = function() {
         agregarAlCarrito(producto.id);
-        cerrarModalUI(); // Opcional: Cerrar el modal al agregar, puedes comentarlo si prefieres que siga abierto
+        cerrarModalUI();
     };
 
-    // Usamos el formato base .webp como lo tenías en tu código original
     const rutaImagenPrincipal = `img/${producto.id}.webp`;
     modalUiImgPrincipal.src = rutaImagenPrincipal;
 
-    // Limpieza de miniaturas
     modalUiContenedorThumbs.innerHTML = '';
 
-    // Generar variantes automáticamente si el producto cuenta con ellas
     if (producto.variantes && producto.variantes > 0) {
         const fragmento = document.createDocumentFragment();
 
-        // Miniatura de la imagen base (ej: img/1.webp)
         const thumbBase = document.createElement('img');
         thumbBase.src = rutaImagenPrincipal;
         thumbBase.classList.add('thumb-item', 'activa');
-        thumbBase.onclick = function() {
-            cambiarImagenPrincipalSutil(rutaImagenPrincipal, this);
-        };
+        thumbBase.loading = 'lazy';
+        thumbBase.onclick = function() { cambiarImagenPrincipalSutil(rutaImagenPrincipal, this); };
         fragmento.appendChild(thumbBase);
 
-        // Bucle dinámico para generar las variantes (ej: img/1.1.webp, img/1.2.webp...)
         for (let i = 1; i <= producto.variantes; i++) {
             const thumbVariante = document.createElement('img');
             const rutaVariante = `img/${producto.id}.${i}.webp`;
             
             thumbVariante.src = rutaVariante;
             thumbVariante.classList.add('thumb-item');
+            thumbVariante.loading = 'lazy';
             
-            thumbVariante.onclick = function() {
-                cambiarImagenPrincipalSutil(rutaVariante, this);
-            };
-
+            thumbVariante.onclick = function() { cambiarImagenPrincipalSutil(rutaVariante, this); };
             fragmento.appendChild(thumbVariante);
         }
 
         modalUiContenedorThumbs.appendChild(fragmento);
     }
 
-    // Despliegue visual
     modalUi.classList.remove('oculto');
 }
 

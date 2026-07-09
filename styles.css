@@ -466,3 +466,34 @@ select { cursor: pointer; padding-right: 30px; }
     .modal-ui-card { padding: 16px; width: 94%; max-height: 88vh; overflow-y: auto; }
     #modalUiTitulo { font-size: 1.15rem; margin: 8px 0; }
 }
+/* Corrección: mostrar imágenes completas */
+.card-img-container img,
+.cart-item img,
+.main-image-box img,
+.thumb-item {
+    object-fit: contain !important;
+    background-color: #ffffff; /* Añade fondo blanco si la imagen no llena el cuadro */
+}
+/* --- LIMPIEZA DE UI: ELIMINAR BADGES Y MEJORAR FOTOS --- */
+
+/* 1. Ocultar los badges de foto (#1, #2, etc) */
+.photo-id-badge {
+    display: none !important;
+}
+
+/* 2. Ajustar el contenedor de imagen para que sea estilo UI */
+.card-img-container {
+    background-color: #ffffff; /* Fondo blanco limpio para la imagen */
+    padding: 15px; /* Crea un marco limpio alrededor del producto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color); /* Separación elegante */
+}
+
+/* 3. Forzar que la imagen se vea completa y centrada */
+.card-img-container img {
+    object-fit: contain !important; /* Muestra el producto completo sin recortar */
+    width: 100%;
+    height: 100%;
+}

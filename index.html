@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Premium | Paletas de Maquillaje</title>
+    <meta name="description" content="Catálogo al Mayor y Detal">
+    <title>Catálogo | Mayor Center Cosméticos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +15,7 @@
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="img/LOGO.jpeg" alt="Logo de la Empresa" onerror="this.src='https://via.placeholder.com/120x55?text=Tu+Logo'">
+                <img src="img/LOGO.jpeg" alt="Mayor Center" onerror="this.src='https://via.placeholder.com/120x55?text=Tu+Logo'">
                 <div class="logo-title-wrapper">
                     <h1>Catálogo</h1>
                     <div class="bcv-badge">
@@ -23,10 +27,10 @@
             <div class="controls">
                 <select id="categoriaSelect" onchange="filtrarProductos()">
                     <option value="todas">Todas las categorías</option>
-                    <option value="paletas">Paletas (Línea Actual)</option>
-                    <option value="rubores">Rubores (Línea Actual)</option>
-                    <option value="labiales" disabled>Labiales (Próximamente)</option>
-                    <option value="skincare" disabled>Skincare (Próximamente)</option>
+                    <option value="paletas">Paletas</option>
+                    <option value="rubores">Rubores</option>
+                    <option value="labiales" disabled>Labiales (Pronto)</option>
+                    <option value="skincare" disabled>Skincare (Pronto)</option>
                 </select>
                 
                 <select id="marcaSelect" onchange="filtrarProductos()">
@@ -34,10 +38,10 @@
                     <option value="Ushas">Ushas</option>
                     <option value="Kevin Coco">Kevin Coco</option>
                     <option value="Hudavioji">Hudavioji</option>
-                    <option value="Otra">Otras / Variadas</option>
+                    <option value="Otra">Otras</option>
                 </select>
 
-                <input type="text" id="searchInput" placeholder="Buscar código o descripción..." onkeyup="filtrarProductos()">
+                <input type="text" id="searchInput" placeholder="Buscar código o producto..." onkeyup="filtrarProductos()">
             </div>
         </div>
     </header>
@@ -45,11 +49,11 @@
     <div class="banner-mayorista">
         <div class="banner-mayorista-content">
             <div class="banner-mayorista-text">
-                <h2>🛍️ Compra al Mayor (Mínimo $25) No se admite Cashea</h2>
-                <p>Lleva un mínimo general de <strong>6 productos</strong>. <span>*Ciertas condiciones aplican:</span> Algunos artículos específicos requieren llevar un mínimo obligatorio de 3 o 12 unidades.</p>
+                <h2>Compra al Mayor (Mínimo $25)</h2>
+                <p>Lleva un mínimo general de <strong>6 productos</strong>. <span>Ciertas condiciones aplican:</span> Algunos artículos requieren mínimo de 3 o 12 unidades. No se admite Cashea.</p>
             </div>
-            <a href="https://wa.me/584244188558?text=Hola!%20Estoy%20viendo%20el%20cat%C3%A1logo.%20Me%20podr%C3%ADan%20explicar%20las%20condiciones%20de%20unidades%20m%C3%ADnimas%20por%20producto?" target="_blank" class="btn-mayorista-wa">
-                💬 Consultar Condiciones
+            <a href="https://wa.me/584244188558?text=Hola!%20Deseo%20consultar%20las%20condiciones%20de%20compra%20al%20mayor." target="_blank" class="btn-mayorista-wa">
+                Consultar Condiciones
             </a>
         </div>
     </div>
@@ -78,7 +82,7 @@
             </div>
 
             <div class="cart-nota-mayor">
-                ℹ️ <strong>Recordatorio Mayorista:</strong> Compra mínima de $25 (mín. 6 productos combinados). Recuerda verificar vía WhatsApp si tus artículos seleccionados requieren llevar 3 o 12 unidades fijas.
+                ℹ️ <strong>Mayorista:</strong> Compra mínima de $25 (mín. 6 productos combinados).
             </div>
             
             <div class="cart-total-block">
@@ -87,47 +91,42 @@
                     <span id="cartTotalValue">$0.00</span>
                 </div>
                 <div class="total-row-bs">
-                    <span>Total en Bs. (BCV):</span>
+                    <span>Total Bs (BCV):</span>
                     <span id="cartTotalBsValue">Bs. 0.00</span>
                 </div>
             </div>
 
             <div class="checkout-form">
-                <h3>📋 Datos de Entrega y Pago</h3>
+                <h3>Datos de Entrega</h3>
                 
                 <div class="form-group">
                     <label for="custNombre">Nombre *</label>
-                    <input type="text" id="custNombre" placeholder="Ej. María">
+                    <input type="text" id="custNombre" placeholder="Tu nombre">
                 </div>
-
                 <div class="form-group">
                     <label for="custApellido">Apellido *</label>
-                    <input type="text" id="custApellido" placeholder="Ej. Pérez">
+                    <input type="text" id="custApellido" placeholder="Tu apellido">
                 </div>
-
                 <div class="form-group">
-                    <label for="custTelefono">Teléfono Móvil *</label>
-                    <input type="text" id="custTelefono" placeholder="Ej. 04241234567">
+                    <label for="custTelefono">Teléfono *</label>
+                    <input type="text" id="custTelefono" placeholder="0424XXXXXXX">
                 </div>
-
                 <div class="form-group">
                     <label for="custEnvio">¿Requiere Envío? *</label>
                     <select id="custEnvio" onchange="analizarOpcionEnvio()">
-                        <option value="No, retiro en persona">No, retiro en persona (Pick up)</option>
-                        <option value="Sí, deseo envío a domicilio / agencia">Sí, deseo envío nacional o delivery</option>
+                        <option value="No, retiro en persona">Retiro en tienda (Pick up)</option>
+                        <option value="Sí, deseo envío a domicilio / agencia">Sí, requiero envío / delivery</option>
                     </select>
                 </div>
-
                 <div class="form-group" id="grupoUbicacion" style="display: none;">
-                    <label for="custUbicacion">Dirección de Entrega / Ubicación *</label>
-                    <input type="text" id="custUbicacion" placeholder="Ciudad, Sector, Calle, Punto de ref.">
+                    <label for="custUbicacion">Dirección de Entrega *</label>
+                    <input type="text" id="custUbicacion" placeholder="Ciudad, Zona, Calle...">
                 </div>
-
                 <div class="form-group">
-                    <label for="custPago">Forma de Pago Seleccionada *</label>
+                    <label for="custPago">Forma de Pago *</label>
                     <select id="custPago">
                         <option value="Pago Móvil">Pago Móvil</option>
-                        <option value="Efectivo (Divisas / BS)">Efectivo (Divisas / BS)</option>
+                        <option value="Efectivo (Divisas / BS)">Efectivo</option>
                         <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                     </select>
                 </div>
@@ -136,66 +135,10 @@
 
         <div class="cart-footer">
             <button class="btn-send-order" onclick="enviarPedidoWhatsApp()">
-                💬 Enviar Pedido Completo a WhatsApp
+                Enviar Pedido por WhatsApp
             </button>
         </div>
     </div>
-
-    <div id="lightbox" class="lightbox" onclick="cerrarLightbox(event)">
-        <div class="lightbox-content">
-            <span class="close-btn" onclick="cerrarLightbox(event)">&times;</span>
-            <img id="lightbox-img" src="" alt="Zoom">
-        </div>
-    </div>
-
-    <section class="innovative-catalogs-section">
-        <div class="catalogs-header">
-            <h2>📚 Descarga nuestros Catálogos</h2>
-            <p>Toca la portada para abrir y descargar la última colección</p>
-        </div>
-
-        <div class="catalogs-3d-grid">
-            <div class="book-container">
-                <div class="book">
-                    <div class="book-front">
-                        <img src="img/portada-1.webp" alt="Catálogo Temporada">
-                        <span class="touch-hint">Toca para abrir</span>
-                    </div>
-                    <div class="book-inside">
-                        <h3>Colección<br>Premium</h3>
-                        <p>Edición 2026</p>
-                        <div class="book-details">
-                            <span>✨ +75 Productos</span>
-                            <span>📊 Precios Mayoristas</span>
-                        </div>
-                        <a href="documentos/catalogo1.pdf" download class="btn-download-3d">
-                            📥 Descargar PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="book-container">
-                <div class="book">
-                    <div class="book-front">
-                        <img src="img/portada-2.webp" alt="Catálogo Ofertas">
-                        <span class="touch-hint">Toca para abrir</span>
-                    </div>
-                    <div class="book-inside">
-                        <h3>Liquidación<br>& Ofertas</h3>
-                        <p>Stock Inmediato</p>
-                        <div class="book-details">
-                            <span>🔥 Descuentos</span>
-                            <span>🚚 Envío Rápido</span>
-                        </div>
-                        <a href="documentos/catalogo2.pdf" download class="btn-download-3d">
-                            📥 Descargar PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <div id="quickview-modal" class="modal-ui-wrapper oculto" aria-hidden="true">
         <div class="modal-ui-card">
@@ -204,7 +147,7 @@
             <div class="modal-ui-grid">
                 <div class="modal-ui-gallery">
                     <div class="main-image-box">
-                        <img id="modalUiImgPrincipal" src="" alt="Vista de Producto" loading="lazy">
+                        <img id="modalUiImgPrincipal" src="" alt="Producto" loading="lazy">
                     </div>
                     <div class="modal-ui-thumbs" id="modalUiContenedorThumbs"></div>
                 </div>
