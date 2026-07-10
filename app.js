@@ -1,7 +1,7 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
 const TASA_BCV = 709.69; 
 
-// 2. BASE DE DATOS LOCAL COMPLETA
+// 2. BASE DE DATOS LOCAL COMPLETA (Se mantiene intacta)
 const productos = [
   { "id": 1, "codigo": "6924372627723", "precio_detal": 7.8, "precio_mayor": 6.5, "descripcion": "Sombra Y Rubor Ushas Crush On You 15Clrs #Es4060-2 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
   { "id": 2, "codigo": "6924372604328", "precio_detal": 7.8, "precio_mayor": 6.6, "descripcion": "Paleta Sombra-Iluminador-Rubor Dolbe C/Espejo 15Clr Ushas #Ues012-4 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
@@ -89,7 +89,7 @@ function inicializarTasa() {
     document.getElementById('tasaBCVDisplay').innerText = TASA_BCV.toFixed(2);
 }
 
-// 4. DISPLAY DE PRODUCTOS PREMIUM
+// 4. DISPLAY DE PRODUCTOS PREMIUM (Con Lazy Loading)
 function renderizarProductos(lista) {
     grid.innerHTML = "";
     if(lista.length === 0) {
@@ -119,7 +119,9 @@ function renderizarProductos(lista) {
                             <span class="price-value">$${prod.precio_detal.toFixed(2)}</span>
                         </div>
                     </div>
-                    <button class="btn-add" onclick="agregarAlCarrito(${prod.id})">Añadir al Pedido</button>
+                    <button class="btn-add" onclick="agregarAlCarrito(${prod.id})">
+                        Añadir al Pedido
+                    </button>
                 </div>
             </div>
         `;
@@ -155,7 +157,6 @@ function analizarOpcionEnvio() {
     }
 }
 
-// 6. LÓGICA DE CARRITO
 function agregarAlCarrito(id) {
     const prod = productos.find(p => p.id === id);
     const existe = carrito.find(item => item.id === id);
@@ -238,7 +239,7 @@ function toggleCart() {
     document.getElementById("cartOverlay").classList.toggle("active");
 }
 
-// 7. ENVÍO WHATSAPP
+// 6. CONTROL DEL CHECKOUT Y REGLAS DE VALIDACIÓN AL MAYOR
 function enviarPedidoWhatsApp() {
     if(carrito.length === 0) {
         alert("Tu pedido está vacío. Añade productos antes de procesar.");
@@ -255,8 +256,10 @@ function enviarPedidoWhatsApp() {
 
     if (tipoPrecio === 'mayor') {
         if (totalGeneral < 25.00 || totalUnidades < 6) {
-            alert(`⚠️ Tu pedido no califica para Precio al Mayor.\n\nRequisitos mínimos: Compra de $25.00 USD y un mínimo de 6 artículos combinados.`);
-            let mensajeInformativo = `¡Hola! Estaba armando un pedido al mayor en el catálogo con un total de $${totalGeneral.toFixed(2)} USD y ${totalUnidades} artículos, pero no alcanzo los mínimos requeridos ($25 USD / 6 unds).`;
+            alert(`⚠️ Tu pedido no califica para Precio al Mayor.\n\nRequisitos mínimos: Compra de $25.00 USD y un mínimo de 6 artículos combinados.\n\nActual: $${totalGeneral.toFixed(2)} USD y ${totalUnidades} artículo(s).\n\nSerás redirigido a atención al cliente por WhatsApp para mayor información.`);
+            
+            let mensajeInformativo = `¡Hola! Estaba armando un pedido al mayor en el catálogo con un total de $${totalGeneral.toFixed(2)} USD y ${totalUnidades} artículos, pero no alcanzo los mínimos requeridos ($25 USD / 6 unds). Me gustaría recibir asesoría o cambiar mi pedido a la tarifa al Detal.`;
+            
             const urlInfo = `https://wa.me/584244188558?text=${encodeURIComponent(mensajeInformativo)}`;
             window.open(urlInfo, '_blank');
             return;
@@ -274,56 +277,139 @@ function enviarPedidoWhatsApp() {
         alert("Por favor, completa tus datos personales (Nombre, Apellido y Teléfono).");
         return;
     }
+    if(opcionEnvio.includes("Sí") && !ubicacion) {
+        alert("Has seleccionado que requieres envío. Por favor, ingresa tu Ubicación/Dirección detallada.");
+        return;
+    }
 
-    let mensaje = `✨ *NUEVO PEDIDO GENERADO* ✨\n👤 *CLIENTE:* ${nombre} ${apellido}\n• *Teléfono:* ${telefono}\n• *Despacho:* ${opcionEnvio}\n${opcionEnvio.includes("Sí") ? `📍 *Dirección:* ${ubicacion}\n` : ""}`;
-    mensaje += `\n🛍️ *PRODUCTOS (${tipoPrecio.toUpperCase()})*\n\n`;
+    let mensaje = `✨ *NUEVO PEDIDO GENERADO* ✨\n`;
+    mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    mensaje += `👤 *DATOS DEL CLIENTE*\n`;
+    mensaje += `• *Nombre completo:* ${nombre} ${apellido}\n`;
+    mensaje += `• *Teléfono:* ${telefono}\n`;
+    mensaje += `• *Forma de pago:* ${formaPago}\n`;
+    mensaje += `• *Despacho:* ${opcionEnvio}\n`;
+    
+    if(opcionEnvio.includes("Sí")) {
+        mensaje += `📍 *Ubicación de envío:* ${ubicacion}\n`;
+    }
+    
+    mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    mensaje += `🛍️ *PRODUCTOS Y CANTIDADES SOLICITADAS (${tipoPrecio.toUpperCase()})*\n\n`;
 
     carrito.forEach((item, index) => {
         const precioUsado = tipoPrecio === 'mayor' ? item.precio_mayor : item.precio_detal;
-        mensaje += `*#${index + 1}* ${item.descripcion} (x${item.cantidad}) - $${(precioUsado * item.cantidad).toFixed(2)}\n`;
+        const subtotal = precioUsado * item.cantidad;
+        mensaje += `*Item #${index + 1}*\n`;
+        mensaje += `📝 *Producto:* ${item.descripcion}\n`;
+        mensaje += `🔢 *CANTIDAD:* ${item.cantidad} unidad(es)\n`;
+        mensaje += `🔹 *CÓDIGO:* ${item.codigo}\n`;
+        mensaje += `💰 *Subtotal:* $${subtotal.toFixed(2)}\n`;
+        mensaje += `-----------------------\n`;
     });
 
-    let totalBs = (totalGeneral * TASA_BCV).toLocaleString('es-VE', {minimumFractionDigits: 2});
-    mensaje += `\n💵 *TOTAL NETO:* $${totalGeneral.toFixed(2)}\n🇻🇪 *TOTAL BS:* Bs. ${totalBs}`;
+    let totalEnBs = totalGeneral * TASA_BCV;
+    let totalBsFormateado = totalEnBs.toLocaleString('es-VE', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    window.open(`https://wa.me/584244188558?text=${encodeURIComponent(mensaje)}`, '_blank');
+    mensaje += `\n💵 *TOTAL NETO EN DIVISAS:* $${totalGeneral.toFixed(2)}\n`;
+    mensaje += `🇻🇪 *TOTAL ESTIMADO EN BS:* Bs. ${totalBsFormateado}\n`;
+    mensaje += `📈 _(Calculado a tasa Oficial BCV: Bs. ${TASA_BCV.toFixed(2)})_\n`;
+    
+    if (tipoPrecio === 'mayor') {
+        mensaje += `⚠️ *Nota:* Pedido al mayor sujeto a validación de condiciones por producto.\n`;
+    }
+    mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    mensaje += `_El cliente está a la espera de sus datos de cuenta para proceder._`;
+
+    const urlFinal = `https://wa.me/584244188558?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlFinal, '_blank');
 }
 
-// 8. MODAL UI
+// 8. CONTROLADOR DE LA INTERFAZ DE VISTA RÁPIDA
 const modalUi = document.getElementById('quickview-modal');
 const modalUiImgPrincipal = document.getElementById('modalUiImgPrincipal');
 const modalUiContenedorThumbs = document.getElementById('modalUiContenedorThumbs');
+const btnCerrarModalUI = document.getElementById('btnCerrarModalUI');
+
+const modalUiMarca = document.getElementById('modalUiMarca');
+const modalUiTitulo = document.getElementById('modalUiTitulo');
+const modalUiPrecioMayor = document.getElementById('modalUiPrecioMayor');
+const modalUiPrecioDetal = document.getElementById('modalUiPrecioDetal');
+const modalUiCodigo = document.getElementById('modalUiCodigo');
+const modalUiBtnAgregar = document.getElementById('modalUiBtnAgregar');
 
 function abrirQuickview(idProducto) {
     const producto = productos.find(p => p.id === idProducto);
     if (!producto) return;
 
-    document.getElementById('modalUiMarca').textContent = producto.marca || "Varios";
-    document.getElementById('modalUiTitulo').textContent = producto.descripcion;
-    document.getElementById('modalUiPrecioMayor').textContent = producto.precio_mayor.toFixed(2);
-    document.getElementById('modalUiPrecioDetal').textContent = producto.precio_detal.toFixed(2);
-    document.getElementById('modalUiCodigo').textContent = producto.codigo;
-    document.getElementById('modalUiBtnAgregar').onclick = function() { agregarAlCarrito(producto.id); cerrarModalUI(); };
+    modalUiMarca.textContent = producto.marca || "Varios";
+    modalUiTitulo.textContent = producto.descripcion;
+    modalUiPrecioMayor.textContent = producto.precio_mayor.toFixed(2);
+    modalUiPrecioDetal.textContent = producto.precio_detal.toFixed(2);
+    modalUiCodigo.textContent = producto.codigo;
 
-    modalUiImgPrincipal.src = `img/${producto.id}.webp`;
+    modalUiBtnAgregar.onclick = function() {
+        agregarAlCarrito(producto.id);
+        cerrarModalUI();
+    };
+
+    const rutaImagenPrincipal = `img/${producto.id}.webp`;
+    modalUiImgPrincipal.src = rutaImagenPrincipal;
+
     modalUiContenedorThumbs.innerHTML = '';
 
     if (producto.variantes && producto.variantes > 0) {
-        for (let i = 0; i <= producto.variantes; i++) {
-            const ruta = i === 0 ? `img/${producto.id}.webp` : `img/${producto.id}.${i}.webp`;
-            const img = document.createElement('img');
-            img.src = ruta;
-            img.className = 'thumb-item' + (i === 0 ? ' activa' : '');
-            img.onclick = function() { modalUiImgPrincipal.src = ruta; modalUiContenedorThumbs.querySelectorAll('img').forEach(el=>el.classList.remove('activa')); img.classList.add('activa'); };
-            modalUiContenedorThumbs.appendChild(img);
+        const fragmento = document.createDocumentFragment();
+
+        const thumbBase = document.createElement('img');
+        thumbBase.src = rutaImagenPrincipal;
+        thumbBase.classList.add('thumb-item', 'activa');
+        thumbBase.loading = 'lazy';
+        thumbBase.onclick = function() { cambiarImagenPrincipalSutil(rutaImagenPrincipal, this); };
+        fragmento.appendChild(thumbBase);
+
+        for (let i = 1; i <= producto.variantes; i++) {
+            const thumbVariante = document.createElement('img');
+            const rutaVariante = `img/${producto.id}.${i}.webp`;
+            
+            thumbVariante.src = rutaVariante;
+            thumbVariante.classList.add('thumb-item');
+            thumbVariante.loading = 'lazy';
+            
+            thumbVariante.onclick = function() { cambiarImagenPrincipalSutil(rutaVariante, this); };
+            fragmento.appendChild(thumbVariante);
         }
+
+        modalUiContenedorThumbs.appendChild(fragmento);
     }
+
     modalUi.classList.remove('oculto');
 }
 
-function cerrarModalUI() { modalUi.classList.add('oculto'); }
-document.getElementById('btnCerrarModalUI').addEventListener('click', cerrarModalUI);
+function cambiarImagenPrincipalSutil(nuevaRuta, elementoThumb) {
+    modalUiImgPrincipal.src = nuevaRuta;
+    const thumbActivoPrevio = modalUiContenedorThumbs.querySelector('.activa');
+    if (thumbActivoPrevio) {
+        thumbActivoPrevio.classList.remove('activa');
+    }
+    elementoThumb.classList.add('activa');
+}
 
-// 9. INICIALIZACIÓN
+function cerrarModalUI() {
+    modalUi.classList.add('oculto');
+    setTimeout(() => { modalUiImgPrincipal.src = ''; }, 200);
+}
+
+btnCerrarModalUI.addEventListener('click', cerrarModalUI);
+modalUi.addEventListener('click', (e) => {
+    if (e.target === modalUi) cerrarModalUI();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modalUi.classList.contains('oculto')) {
+        cerrarModalUI();
+    }
+});
+
+// 9. EJECUCIONES AL CARGAR LA PÁGINA
 inicializarTasa();
 renderizarProductos(productos);
