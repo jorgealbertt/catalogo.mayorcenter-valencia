@@ -1,7 +1,7 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
 const TASA_BCV = 709.69; 
 
-// 2. BASE DE DATOS LOCAL COMPLETA (Se mantiene intacta)
+// 2. BASE DE DATOS LOCAL COMPLETA (Corregida la coma en ID 75)
 const productos = [
   { "id": 1, "codigo": "6924372627723", "precio_detal": 7.8, "precio_mayor": 6.5, "descripcion": "Sombra Y Rubor Ushas Crush On You 15Clrs #Es4060-2 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
   { "id": 2, "codigo": "6924372604328", "precio_detal": 7.8, "precio_mayor": 6.6, "descripcion": "Paleta Sombra-Iluminador-Rubor Dolbe C/Espejo 15Clr Ushas #Ues012-4 *6Pcs* X 1Caja", "marca": "Ushas", "variantes": 2 },
@@ -77,7 +77,24 @@ const productos = [
   { "id": 72, "codigo": "6950865405912", "precio_detal": 1.8, "precio_mayor": 1.5, "descripcion": "Rubor En Polvo Yuth Vitality Meis 6Tonos #Mso116B *24Pcs* X 1Caja", "marca": "Otra" },
   { "id": 73, "codigo": "6924372618707", "precio_detal": 1.84, "precio_mayor": 1.84, "descripcion": "Labial Y Blush En Gel Magic Aurora 3En1 4Tonos Ushas #Uc105 *24Pcs* X 1Caja", "marca": "Ushas" },
   { "id": 74, "codigo": "6976289198117", "precio_detal": 3.2, "precio_mayor": 2.7, "descripcion": "Rubor Mousse Blush Bake 4Tonos Kevin Coco #Kc-248117 *24Pcs* X Caja", "marca": "Kevin Coco" },
-  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.3, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }
+  { "id": 75, "codigo": "6924372629857", "precio_detal": 2.7, "precio_mayor": 2.3, "descripcion": "Rubor Cruch Blush Ushas 3Tono 4Clr Uf-012 *24Pcs* X 1Caja", "marca": "Ushas" }, // <-- COMA CORREGIDA AQUÍ
+  { "id": 76, "codigo": "6976289195383", "precio_detal": 9.4, "precio_mayor": 8.4, "descripcion": "Paleta Sombra Kevin-Coco 36Clr Kc-245383 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 2 },
+  { "id": 77, "codigo": "6903072470105", "precio_detal": 2.8, "precio_mayor": 2.3, "descripcion": "Polvo Compacto Kiss Beauty Super Cover Powder Matte Spf+15 2Tonos  #81604-03E *12Pcs* X 1Caja", "marca": "Kiss Beauty", "variantes": 3 },
+  { "id": 78, "codigo": "6903072480418", "precio_detal": 3.5, "precio_mayor": 3.0, "descripcion": "Polvo Suelto Fijador Kiss Beauty Fresh Skin Losse Setting Powder 2Tonos #85556-03 *12Pcs* X 1Caja (P6-19-D)", "marca": "Kiss Beauty" },
+  { "id": 79, "codigo": "6976289197578", "precio_detal": 3.8, "precio_mayor": 3.2, "descripcion": "Polvo Suelto C/Borla Setting Powder 3Clr 10G Kevin Coco #Kc-247578 *12Pcs* X 1Caja", "marca": "Kevin Coco", "variantes": 2 },
+  { "id": 80, "codigo": "6903072462490", "precio_detal": 2.8, "precio_mayor": 2.8, "descripcion": "Polvo Suelto Setting Powder Karite 16G #85154-47 *12Pcs* X 1Caja (P6-22-B)", "marca": "Karite" },
+  { "id": 81, "codigo": "6903072361601", "precio_detal": 3.4, "precio_mayor": 2.8, "descripcion": "Polvo Compacto Fit Mat Matte Poreless Powder 3Tonos Kiss Beauty #81713-03 *12Pcs* X 1Caja (P6-22-A)", "marca": "Kiss Beauty", "variantes": 2 },
+  { "id": 82, "codigo": "6950865405752", "precio_detal": 3.0, "precio_mayor": 2.5, "descripcion": "Polvo Compacto Professional C/Espejo Meis Compact Powder 6Tonos #Ms-01161P *12Pcs* X 1Caja(P6-22-B)", "marca": "Meis", "variantes": 4 },
+  { "id": 83, "codigo": "6950865405486", "precio_detal": 2.8, "precio_mayor": 2.4, "descripcion": "Polvo Compacto C/Espejo Y Esponja Exquisite Face 6Tono Meis Cosmetics #Ms-0112P-B *12Pcs* X 1Caja (P6-22-C)", "marca": "Meis", "variantes": 4 },
+  { "id": 84, "codigo": "6903072469604", "precio_detal": 3.2, "precio_mayor": 2.7, "descripcion": "Polvo Doble Compacto C/Espejo Vitamin B3 Powder 2Tonos #Middle Kiss Beauty #81755-03B *12Pcs* X 1Caja", "marca": "Kiss Beauty", "variantes": 1 },
+  { "id": 85, "codigo": "6903072468614", "precio_detal": 2.7, "precio_mayor": 2.3, "descripcion": "Polvo Compacto Karite Sweet Powder Flawless 83321-47 *12Pcs* X 1Caja (P6-22-A)", "marca": "Karite", "variantes": 2 },
+  { "id": 86, "codigo": "6924372655504", "precio_detal": 2.0, "precio_mayor": 1.7, "descripcion": "Polvo Ushas Pressed Powder 4Tono Fc-608A *24Pcs* X 1Caja (P6-21-C)", "marca": "Ushas", "variantes": 6 },
+  { "id": 87, "codigo": "6924372655658", "precio_detal": 2.2, "precio_mayor": 2.2, "descripcion": "Polvo Compacto C/Espejo Pressed Powder Ushas 4Tonos #Fc609-A *24Pcs* X 1Caja", "marca": "Ushas", "variantes": 3 },
+  { "id": 88, "codigo": "6924372629918", "precio_detal": 2.7, "precio_mayor": 2.7, "descripcion": "Polvo Compacto C/Espejo Spf 30Pa+ Matte 3Tonos Pressed Ushas #Uf016-B *12Pcs* X 1Caja (P6-22-B)", "marca": "Ushas", "variantes": 3 },
+  { "id": 90, "codigo": "6924372618042", "precio_detal": 2.3, "precio_mayor": 2.0, "descripcion": "Polvo Suelto Traslucido 16H Loose Powder Ushas #Uf064-2 *24Pcs* X 1Caja (P6-22-A)", "marca": "Ushas", "variantes": 4 },
+  { "id": 91, "codigo": "6924372604724", "precio_detal": 3.1, "precio_mayor": 2.6, "descripcion": "Polvo Traslucido Suelto Long-Lastimg Loose Powder Ushas #Ulo001-1 *24Pcs* X 1Caja (P6-18-E)", "marca": "Ushas" },
+  { "id": 92, "codigo": "6924372628942", "precio_detal": 2.5, "precio_mayor": 2.1, "descripcion": "Polvo Traslucido Shiny Ushas Fc650-02 *24Pcs* X 1Caja (P6-22-B)", "marca": "Ushas" },
+  { "id": 93, "codigo": "6924372657690", "precio_detal": 2.9, "precio_mayor": 2.5, "descripcion": "Polvo Pressed Ushas 24Hr Fresh 4Tonos #Fc-648A *24Pcs* X 1Caja (P6-18-D)", "marca": "Ushas", "variantes": 3 }
 ];
 
 let carrito = [];
@@ -129,7 +146,7 @@ function renderizarProductos(lista) {
     });
 }
 
-// 5. FILTRADO MULTI-CONTROL
+// 5. FILTRADO MULTI-CONTROL (Optimizado dinámicamente)
 function filtrarProductos() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const marca = document.getElementById("marcaSelect").value;
@@ -139,7 +156,15 @@ function filtrarProductos() {
         const matchText = p.codigo.toLowerCase().includes(query) || p.descripcion.toLowerCase().includes(query);
         const matchMarca = (marca === "todas") || (p.marca === marca);
         
-        let lineaCalculada = p.id <= 44 ? "paletas" : "rubores";
+        // CORRECCIÓN DE LÓGICA: Detección inteligente por descripción en vez de IDs fijos
+        let lineaCalculada = "otras";
+        const descLower = p.descripcion.toLowerCase();
+        if (descLower.includes("paleta") || descLower.includes("sombra")) {
+            lineaCalculada = "paletas";
+        } else if (descLower.includes("rubor") || descLower.includes("blush") || descLower.includes("blusher")) {
+            lineaCalculada = "rubores";
+        }
+
         const matchCategoria = (categoria === "todas") || (lineaCalculada === categoria);
 
         return matchText && matchMarca && matchCategoria;
