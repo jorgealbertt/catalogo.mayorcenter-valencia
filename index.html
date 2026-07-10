@@ -7,7 +7,7 @@
     <title>Catálogo | Mayor Center Cosméticos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,12 +15,10 @@
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="img/LOGO.jpeg" alt="Mayor Center" onerror="this.src='https://via.placeholder.com/120x55?text=Tu+Logo'">
+                <img src="img/LOGO.jpeg" alt="Mayor Center" onerror="this.src='https://via.placeholder.com/120x55?text=Logo'">
                 <div class="logo-title-wrapper">
                     <h1>Catálogo</h1>
-                    <div class="bcv-badge">
-                        🏪 Tasa BCV: Bs. <strong id="tasaBCVDisplay">0.00</strong>
-                    </div>
+                    <div class="bcv-badge">🏪 Tasa BCV: Bs. <strong id="tasaBCVDisplay">0.00</strong></div>
                 </div>
             </div>
             
@@ -29,10 +27,7 @@
                     <option value="todas">Todas las categorías</option>
                     <option value="paletas">Paletas</option>
                     <option value="rubores">Rubores</option>
-                    <option value="labiales" disabled>Labiales (Pronto)</option>
-                    <option value="skincare" disabled>Skincare (Pronto)</option>
                 </select>
-                
                 <select id="marcaSelect" onchange="filtrarProductos()">
                     <option value="todas">Todas las marcas</option>
                     <option value="Ushas">Ushas</option>
@@ -40,23 +35,10 @@
                     <option value="Hudavioji">Hudavioji</option>
                     <option value="Otra">Otras</option>
                 </select>
-
                 <input type="text" id="searchInput" placeholder="Buscar código o producto..." onkeyup="filtrarProductos()">
             </div>
         </div>
     </header>
-
-    <div class="banner-mayorista">
-        <div class="banner-mayorista-content">
-            <div class="banner-mayorista-text">
-                <h2>Compra al Mayor (Mínimo $25)</h2>
-                <p>Lleva un mínimo general de <strong>6 productos</strong>. <span>Ciertas condiciones aplican:</span> Algunos artículos requieren mínimo de 3 o 12 unidades. No se admite Cashea.</p>
-            </div>
-            <a href="https://wa.me/584244188558?text=Hola!%20Deseo%20consultar%20las%20condiciones%20de%20compra%20al%20mayor." target="_blank" class="btn-mayorista-wa">
-                Consultar Condiciones
-            </a>
-        </div>
-    </div>
 
     <main class="catalog-container" id="gridProductos"></main>
 
@@ -72,106 +54,55 @@
             <h2>Tu Pedido</h2>
             <button class="cart-close" onclick="toggleCart()">&times;</button>
         </div>
-        
         <div class="cart-body">
             <div class="cart-items-container" id="cartItemsList"></div>
-            
             <div class="price-type-selector">
                 <button class="price-type-btn active" id="btnTipoMayor" onclick="setPriceType('mayor')">Precio Mayor</button>
                 <button class="price-type-btn" id="btnTipoDetal" onclick="setPriceType('detal')">Precio Detal</button>
             </div>
-
-            <div class="cart-nota-mayor">
-                ℹ️ <strong>Mayorista:</strong> Compra mínima de $25 (mín. 6 productos combinados).
-            </div>
-            
+            <div class="cart-nota-mayor">ℹ️ <strong>Mayorista:</strong> Compra mínima de $25 (mín. 6 productos combinados).</div>
             <div class="cart-total-block">
-                <div class="total-row-main">
-                    <span>Total USD:</span>
-                    <span id="cartTotalValue">$0.00</span>
-                </div>
-                <div class="total-row-bs">
-                    <span>Total Bs (BCV):</span>
-                    <span id="cartTotalBsValue">Bs. 0.00</span>
-                </div>
+                <div class="total-row-main"><span>Total USD:</span><span id="cartTotalValue">$0.00</span></div>
+                <div class="total-row-bs"><span>Total Bs (BCV):</span><span id="cartTotalBsValue">Bs. 0.00</span></div>
             </div>
-
             <div class="checkout-form">
                 <h3>Datos de Entrega</h3>
-                
+                <div class="form-group"><input type="text" id="custNombre" placeholder="Nombre"></div>
+                <div class="form-group"><input type="text" id="custApellido" placeholder="Apellido"></div>
+                <div class="form-group"><input type="text" id="custTelefono" placeholder="Teléfono"></div>
                 <div class="form-group">
-                    <label for="custNombre">Nombre *</label>
-                    <input type="text" id="custNombre" placeholder="Tu nombre">
-                </div>
-                <div class="form-group">
-                    <label for="custApellido">Apellido *</label>
-                    <input type="text" id="custApellido" placeholder="Tu apellido">
-                </div>
-                <div class="form-group">
-                    <label for="custTelefono">Teléfono *</label>
-                    <input type="text" id="custTelefono" placeholder="0424XXXXXXX">
-                </div>
-                <div class="form-group">
-                    <label for="custEnvio">¿Requiere Envío? *</label>
                     <select id="custEnvio" onchange="analizarOpcionEnvio()">
-                        <option value="No, retiro en persona">Retiro en tienda (Pick up)</option>
-                        <option value="Sí, deseo envío a domicilio / agencia">Sí, requiero envío / delivery</option>
+                        <option value="No, retiro en persona">Retiro en tienda</option>
+                        <option value="Sí, deseo envío">Sí, requiero envío</option>
                     </select>
                 </div>
-                <div class="form-group" id="grupoUbicacion" style="display: none;">
-                    <label for="custUbicacion">Dirección de Entrega *</label>
-                    <input type="text" id="custUbicacion" placeholder="Ciudad, Zona, Calle...">
-                </div>
-                <div class="form-group">
-                    <label for="custPago">Forma de Pago *</label>
-                    <select id="custPago">
-                        <option value="Pago Móvil">Pago Móvil</option>
-                        <option value="Efectivo (Divisas / BS)">Efectivo</option>
-                        <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-                    </select>
-                </div>
+                <div class="form-group" id="grupoUbicacion" style="display: none;"><input type="text" id="custUbicacion" placeholder="Dirección..."></div>
+                <div class="form-group"><select id="custPago"><option>Pago Móvil</option><option>Efectivo</option><option>Transferencia</option></select></div>
             </div>
         </div>
-
         <div class="cart-footer">
-            <button class="btn-send-order" onclick="enviarPedidoWhatsApp()">
-                Enviar Pedido por WhatsApp
-            </button>
+            <button class="btn-send-order" onclick="enviarPedidoWhatsApp()">Enviar Pedido por WhatsApp</button>
         </div>
     </div>
 
-    <div id="quickview-modal" class="modal-ui-wrapper oculto" aria-hidden="true">
+    <!-- Modal Quickview -->
+    <div id="quickview-modal" class="modal-ui-wrapper oculto">
         <div class="modal-ui-card">
-            <button class="modal-ui-close" id="btnCerrarModalUI" aria-label="Cerrar vista">&times;</button>
-            
+            <button class="modal-ui-close" id="btnCerrarModalUI">&times;</button>
             <div class="modal-ui-grid">
                 <div class="modal-ui-gallery">
-                    <div class="main-image-box">
-                        <img id="modalUiImgPrincipal" src="" alt="Producto" loading="lazy">
-                    </div>
+                    <div class="main-image-box"><img id="modalUiImgPrincipal" src="" alt="Producto"></div>
                     <div class="modal-ui-thumbs" id="modalUiContenedorThumbs"></div>
                 </div>
-                
                 <div class="modal-ui-details">
                     <span id="modalUiMarca" class="modal-ui-badge"></span>
                     <h2 id="modalUiTitulo"></h2>
-                    
                     <div class="modal-ui-prices">
-                        <div class="price-block">
-                            <span class="price-label">Precio Mayor</span>
-                            <span class="price-value">$<span id="modalUiPrecioMayor">0.00</span></span>
-                        </div>
-                        <div class="price-block">
-                            <span class="price-label">Precio Detal</span>
-                            <span class="price-value">$<span id="modalUiPrecioDetal">0.00</span></span>
-                        </div>
+                        <div class="price-block"><span class="price-label">Precio Mayor</span><span class="price-value">$<span id="modalUiPrecioMayor">0.00</span></span></div>
+                        <div class="price-block"><span class="price-label">Precio Detal</span><span class="price-value">$<span id="modalUiPrecioDetal">0.00</span></span></div>
                     </div>
-                    
                     <p class="modal-ui-code">Código: <span id="modalUiCodigo"></span></p>
-                    
-                    <button class="modal-ui-btn-action" id="modalUiBtnAgregar">
-                        Añadir al Pedido
-                    </button>
+                    <button class="modal-ui-btn-action" id="modalUiBtnAgregar">Añadir al Pedido</button>
                 </div>
             </div>
         </div>
