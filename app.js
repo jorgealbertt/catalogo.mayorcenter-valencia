@@ -1,5 +1,5 @@
 // 1. CONFIGURACIÓN DE LA TASA BCV CENTRALIZADA
-const TASA_BCV = 737.88; 
+const TASA_BCV = 742.23; 
 
 // 2. BASE DE DATOS LOCAL COMPLETA (Corregida la coma en ID 75)
 const productos = [
